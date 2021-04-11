@@ -1,11 +1,15 @@
 package edu.emp.pfe.instances;
+
 import edu.emp.pfe.generation.VagrantEnvGenerator;
+import edu.emp.pfe.model.SSH_information;
 import edu.emp.pfe.utilities.system.Output;
 import edu.emp.pfe.utilities.system.OutputReader;
 import edu.emp.pfe.utilities.system.SystemCommand;
 import edu.emp.pfe.model.VirtualEnvironment;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VagrantInstance implements Instance {
     VirtualEnvironment virtualEnvironment;
@@ -68,58 +72,21 @@ public class VagrantInstance implements Instance {
         return SystemCommand.exec("vagrant halt " + vm_id, path, outputReader);
     }
 
-    @Override
-    public String connectionInfo(String vm_id) {
-
-
-        return null;
-    }
 
     public boolean validatePath(OutputReader outputReader) {
         return SystemCommand.exec("vagrant validate ", path, outputReader).getExitValue();
     }
 
-    private String retrieveIpAddress(String vm_id) {
-        String result = "";
-        try {
-            String command = "vagrant ssh " + vm_id;
-            Process process = Runtime.getRuntime().exec(command,null,new File(path));
+    @Override
+    public List<SSH_information> retrieveIpAddress(String vm_id) {
+        IpAddressesRetriever ipAddressesRetriever = new IpAddressesRetriever(virtualEnvironment);
+        if (vm_id == null)
+            return ipAddressesRetriever.retrieveAll();
 
-            BufferedWriter writer = new BufferedWriter(
-                    new OutputStreamWriter(process.getOutputStream()));
-            writer.write("echo separator && ip -4 addr show eth1 | grep -oP \"(?<=inet ).*(?=/)\"");
-            writer.close();
+        List<SSH_information> ssh_information = new ArrayList<>();
+        ssh_information.add(ipAddressesRetriever.retrieve(vm_id));
+        return ssh_information;
 
-            BufferedReader errReader = new BufferedReader(new InputStreamReader(
-                    process.getErrorStream()));
-            StringBuilder errOutput = new StringBuilder();
-            String errLine;
-            while ((errLine = errReader.readLine()) != null) {
-                errOutput.append(errLine);
-//                System.out.println(line);
-            }
-            String errResult = errOutput.toString();
-            System.out.println("erreur result \n" + errResult);
-
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    process.getInputStream()));
-            StringBuilder output = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                output.append(line);
-                System.out.println(line);
-            }
-            result = output.toString();
-            System.out.println(result.substring(result.lastIndexOf("separator")+9));
-            process.waitFor();
-            process.destroy();
-            reader.close();
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return result;
     }
 
 

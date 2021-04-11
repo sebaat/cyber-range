@@ -1,16 +1,19 @@
 package edu.emp.pfe.instances;
 
 import edu.emp.pfe.VirtualEnvSample2;
+import edu.emp.pfe.model.SSH_information;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
+import java.util.List;
+import java.util.Scanner;
 
 class VagrantInstanceTest {
 
     VagrantInstance vagrantInstance = new VagrantInstance(VirtualEnvSample2.virtualEnvironment);
+
     @Test
     void generate() {
-        vagrantInstance.generate( null);
+        vagrantInstance.generate(null);
     }
 
     @Test
@@ -39,62 +42,41 @@ class VagrantInstanceTest {
     }
 
     @Test
-    void connectionInfo() {
-        System.out.println(vagrantInstance.connectionInfo(null));
-    }
-
-    @Test
     void validatePath() {
         System.out.println(vagrantInstance.validatePath(line -> System.out.println(line)));
     }
 
     @Test
-    void checkIfWeCanGetTheIpAddressOfAMachine() {
-/*        System.out.println("-------------creating the vm-------------");
+    void retrieveIpAddress() {
+        System.out.println("-------------creating the vm-------------");
+        vagrantInstance.status(null, line -> System.out.println(line));
         vagrantInstance.generate(line -> System.out.println(line));
-        vagrantInstance.start(vagrantInstance.getVirtualEnvironment().getVirtualMachines().get(1).getVm_id(),
-                line -> System.out.println(line));
+        vagrantInstance.start(null, line -> System.out.println(line));
         System.out.println("-------------connection infos-------------");
-*/
-        String command = "vagrant ssh student1";
-        String path = "/home/pfe21/Documents/cyber_range/vagrant_environments/prof_1/exo1/instance-1";
+        List<SSH_information> ssh_information = vagrantInstance.retrieveIpAddress(null);
+        for (SSH_information information : ssh_information)
+            System.out.println(information.toString());
+    }
 
-        try {
-            Process process = Runtime.getRuntime().exec(command,null,new File(path));
-//            PrintStream out = new PrintStream(process.getOutputStream());
-//            out.println("ls -l /home");
-//            out.close();
-            BufferedWriter writer = new BufferedWriter(
-                    new OutputStreamWriter(process.getOutputStream()));
-            writer.write("echo separator && ip -4 addr show eth1 | grep -oP \"(?<=inet ).*(?=/)\"");
-            writer.close();
+    private boolean getConfirmation() {
+        boolean valid = false;
+        while (true) {
+            System.out.println("do you want to create the virtual environment [y/n]: ");
+            Scanner scanner = new Scanner(System.in);
+            String answer = scanner.nextLine();
+            switch (answer) {
+                case "YES":
+                case "Yes":
+                case "yes":
+                case "y":
+                    return true;
 
-            BufferedReader errReader = new BufferedReader(new InputStreamReader(
-                    process.getErrorStream()));
-            StringBuilder errOutput = new StringBuilder();
-            String errLine;
-            while ((errLine = errReader.readLine()) != null) {
-                errOutput.append(errLine);
-//                System.out.println(line);
+                case "NO":
+                case "No":
+                case "no":
+                case "n":
+                    return false;
             }
-            String errResult = errOutput.toString();
-            System.out.println("erreur result \n" + errResult);
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    process.getInputStream()));
-            StringBuilder output = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                output.append(line);
-//                System.out.println(line);
-            }
-            String result = output.toString();
-            System.out.println(result.substring(result.lastIndexOf("separator")+9));
-            process.waitFor();
-            process.destroy();
-            reader.close();
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
         }
     }
 }

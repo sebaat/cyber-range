@@ -1,8 +1,11 @@
 package edu.emp.pfe.instances;
 
+import edu.emp.pfe.model.SSH_information;
 import edu.emp.pfe.utilities.system.Output;
 import edu.emp.pfe.model.VirtualEnvironment;
 import edu.emp.pfe.utilities.system.OutputReader;
+
+import java.util.List;
 
 /**
  * for all methods with the vm_id parameter, if the vm_id is null
@@ -23,5 +26,6 @@ public interface Instance {
 
     Output halt(String vm_id, OutputReader outputReader);
 
-    String connectionInfo(String vm_id);
+    List<SSH_information> retrieveIpAddress(String vm_id);
 }
+
