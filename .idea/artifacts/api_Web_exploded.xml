@@ -2,14 +2,17 @@
   <artifact type="exploded-war" name="api:Web exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/cyber_range_api</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="api/web/Web" />
+      <element id="javaee-facet-resources" facet="rest_api/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="api" />
+          <element id="module-output" name="rest_api" />
           <element id="module-output" name="generation" />
           <element id="module-output" name="Instance managment" />
           <element id="module-output" name="model" />
           <element id="module-output" name="utilities" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="gson-2.8.6" />
         </element>
       </element>
     </root>

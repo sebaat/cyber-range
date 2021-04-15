@@ -48,14 +48,14 @@ class VagrantInstanceTest {
 
     @Test
     void retrieveIpAddress() {
-        System.out.println("-------------creating the vm-------------");
-        vagrantInstance.status(null, line -> System.out.println(line));
-        vagrantInstance.generate(line -> System.out.println(line));
-        vagrantInstance.start(null, line -> System.out.println(line));
-        System.out.println("-------------connection infos-------------");
+//        System.out.println("-------------creating the vm-------------");
+//        vagrantInstance.status(null, line -> System.out.println(line));
+//        vagrantInstance.generate(line -> System.out.println(line));
+//        vagrantInstance.start(null, line -> System.out.println(line));
+        System.out.println("-------------connection infos-------------\n");
         List<SSH_information> ssh_information = vagrantInstance.retrieveIpAddress(null);
         for (SSH_information information : ssh_information)
-            System.out.println(information.toString());
+            System.out.println(information.toString() + "\n");
     }
 
     private boolean getConfirmation() {

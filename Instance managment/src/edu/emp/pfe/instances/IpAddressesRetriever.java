@@ -63,7 +63,8 @@ public class IpAddressesRetriever {
                 System.out.println(errLine);
             }
             String errResult = errOutput.toString();
-            System.out.println("erreur result \n" + errResult);
+            if(errResult != null && !errResult.equals(""))
+                System.out.println("erreur result \n" + errResult);
 
             if (!errResult.equals("")) {
                 information.setValid(false);
@@ -78,7 +79,7 @@ public class IpAddressesRetriever {
             String line;
             while ((line = reader.readLine()) != null) {
                 output.append(line);
-                System.out.println(line);
+//                System.out.println(line);
             }
             String result = output.toString();
             String ipAddress = result.substring(result.lastIndexOf("separator") + 9);
