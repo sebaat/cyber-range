@@ -10,6 +10,7 @@ import edu.emp.pfe.model.VirtualEnvironment;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class VagrantInstance implements Instance {
     VirtualEnvironment virtualEnvironment;
@@ -29,6 +30,17 @@ public class VagrantInstance implements Instance {
     public void generate(OutputReader outputReader) {
         destroy(null, null); // we need to destroy the previous VM before generating a new vagrant environment
         new VagrantEnvGenerator(virtualEnvironment).generateVagrantEnv();
+        Map<String, String> vagrantBoxesPaths = virtualEnvironment.getVagrantBoxesPaths();
+        List<String> availableVagrantBoxes = new ArrayList<>();
+        SystemCommand.exec("vagrant box list | grep virtualbox",line -> {
+            availableVagrantBoxes.add(line.substring(0, line.indexOf(' ')));
+        });
+
+        vagrantBoxesPaths.forEach((vagrantBoxName, vagrantBoxPath) -> {
+            if (!availableVagrantBoxes.contains(vagrantBoxName))
+                SystemCommand.exec("vagrant box add --name " + vagrantBoxName + " " + vagrantBoxPath, outputReader);
+        });
+
     }
 
     @Override

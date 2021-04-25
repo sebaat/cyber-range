@@ -43,7 +43,8 @@ public class VirtualEnvSample {
 
     static public List<VirtualMachine> virtualMachines = new ArrayList<>(Arrays.asList(cibleMachine, null, student1Machine));
 
-    static public String vagrantEvnPath = "/home/pfe21/Documents/cyber_range/vagrant_environments/prof_1/exo1/instance-1";
+    static public String vagrantEvnPath = "/home/chakib-user/Documents/cyber_range/vagrant_environments/prof_1/exo1/instance-1";
+//    static public String vagrantEvnPath = "/home/pfe21/Documents/cyber_range/vagrant_environments/prof_1/exo1/instance-1";
     static public VirtualEnvironment virtualEnvironment = new VirtualEnvironment(virtualMachines,vagrantEvnPath);
 }
 

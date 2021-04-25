@@ -12,8 +12,12 @@ public class VirtualEnvSample2 {
 
     static {
         Map<String,String> DockerImagesPaths = new HashMap<>();
-        DockerImagesPaths.put("vulnerables/web-dvwa","/home/pfe21/Desktop/TP01/dockerimage");
+        Map<String,String> vagrantBoxPaths = new HashMap<>();
+//        DockerImagesPaths.put("vulnerables/web-dvwa","/home/pfe21/Desktop/TP01/dockerimage");
+        DockerImagesPaths.put("vulnerables/web-dvwa","/home/chakib-user/Desktop/exo01/dockerimage");
+        vagrantBoxPaths.put("vagrantBox", "/home/chakib-user/Desktop/chakib/boxWithDocker");
         virtualEnvironment.setDockerImagesPaths(DockerImagesPaths);
+        virtualEnvironment.setVagrantBoxesPaths(vagrantBoxPaths);
     }
 
 }

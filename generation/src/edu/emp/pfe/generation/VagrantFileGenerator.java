@@ -10,7 +10,6 @@ public class VagrantFileGenerator {
 
     VirtualEnvironment virtualEnvironment;
     String vagrantEnvPath;
-
     String vagrantFileContent = "";
     boolean fileCreation;
 

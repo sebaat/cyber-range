@@ -13,7 +13,7 @@ class VagrantInstanceTest {
 
     @Test
     void generate() {
-        vagrantInstance.generate(null);
+        vagrantInstance.generate(line -> System.out.println(line));
     }
 
     @Test

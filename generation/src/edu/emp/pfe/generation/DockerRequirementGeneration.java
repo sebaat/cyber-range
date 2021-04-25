@@ -17,13 +17,11 @@ public class DockerRequirementGeneration {
 
     String vagrantEnvPath;
     Map<String, String> dockerImagesPaths;
-    Map<String, String> vagrantBoxesPaths;
 
     public DockerRequirementGeneration(VirtualEnvironment virtualEnvironment, String vagrantEnvPath) {
         this.virtualEnvironment = virtualEnvironment;
         this.vagrantEnvPath = vagrantEnvPath;
         this.dockerImagesPaths = virtualEnvironment.getDockerImagesPaths();
-        this.vagrantBoxesPaths = virtualEnvironment.getVagrantBoxesPaths();
 
     }
 

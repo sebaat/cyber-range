@@ -32,7 +32,7 @@ public class Environment {
         Gson gson = new Gson();
         VirtualEnvironment virtualEnvironment = gson.fromJson(jason, VirtualEnvironment.class);
         VagrantInstance vagrantInstance = new VagrantInstance(virtualEnvironment);
-        vagrantInstance.generate( null);
+        vagrantInstance.generate(null);
 
         new Thread(() -> {
             Output start = vagrantInstance.start(null, line -> {
@@ -72,3 +72,4 @@ public class Environment {
         System.out.println(test);
     }
 }
+
