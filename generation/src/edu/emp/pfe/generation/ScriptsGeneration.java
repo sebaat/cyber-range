@@ -41,10 +41,11 @@ public class ScriptsGeneration {
             if (scriptProvisioners != null) {
                 for (int i = 0; i < scriptProvisioners.size(); i++) {
                     String scriptPath;
-                    if (scriptProvisioners.get(i) != null) {
+                    if (scriptProvisioners.get(i).getScriptFileName() != null) {
                         scriptPath = vagrantEnvPath + "/" + scriptProvisioners.get(i).getScriptFileName();
-                    } else
+                    } else {
                         scriptPath = vagrantEnvPath + "/" + vm_id + "_" + i + ".sh";
+                    }
                     Utilities.writeToFile(scriptPath, scriptProvisioners.get(i).getScript());
                 }
             }

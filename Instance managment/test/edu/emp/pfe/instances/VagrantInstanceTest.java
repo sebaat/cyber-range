@@ -1,6 +1,7 @@
 package edu.emp.pfe.instances;
 
 import edu.emp.pfe.VirtualEnvSample2;
+import edu.emp.pfe.VirtualEnvTestSenario;
 import edu.emp.pfe.model.SSH_information;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +10,8 @@ import java.util.Scanner;
 
 class VagrantInstanceTest {
 
-    VagrantInstance vagrantInstance = new VagrantInstance(VirtualEnvSample2.virtualEnvironment);
+//    VagrantInstance vagrantInstance = new VagrantInstance(VirtualEnvSample2.virtualEnvironment);
+    VagrantInstance vagrantInstance = new VagrantInstance(VirtualEnvTestSenario.virtualEnvironment);
 
     @Test
     void generate() {

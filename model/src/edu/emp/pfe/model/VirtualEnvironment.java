@@ -12,6 +12,7 @@ public class VirtualEnvironment {
     String vagrantEnvPath;
     Map<String, String> dockerImagesPaths;
     Map<String, String> vagrantBoxesPaths;
+    String uploadPath;
 
     public VirtualEnvironment(List<VirtualMachine> virtualMachines, String vagrantEnvPath) {
         this.virtualMachines = virtualMachines;
@@ -84,4 +85,11 @@ public class VirtualEnvironment {
         this.virtualMachines.removeAll(Collections.singletonList(null));
     }
 
+    public String getUploadPath() {
+        return uploadPath;
+    }
+
+    public void setUploadPath(String uploadPath) {
+        this.uploadPath = uploadPath;
+    }
 }

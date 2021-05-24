@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="api:Web exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/cyber_range_api</output-path>
+    <output-path>$PROJECT_DIR$/out/artifacts/cyber_range_api.war</output-path>
     <root id="root">
       <element id="javaee-facet-resources" facet="rest_api/web/Web" />
       <element id="directory" name="WEB-INF">
